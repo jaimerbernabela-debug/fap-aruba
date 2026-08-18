@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predicciones de Fútbol Aruba 2026 | FAP</title>
+<meta name="description" content="Haz tu predicción de la Primera División de Aruba: arrastra los 10 equipos, descarga tu clasificación y compárala con toda la afición en La General. Gratis y sin registro.">
+<link rel="canonical" href="https://www.fap-aruba.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FAP · Futbol Aruba Predición">
+<meta property="og:title" content="Predicciones de Fútbol Aruba 2026 | FAP">
+<meta property="og:description" content="Ordena los 10 equipos de la Liga de Aruba según tu predicción, descarga tu clasificación como imagen y compárala con la de toda la afición.">
+<meta property="og:image" content="https://www.fap-aruba.com/assets/img/og-image.png">
+<meta property="og:url" content="https://www.fap-aruba.com/">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Predicciones de Fútbol Aruba 2026 | FAP">
+<meta name="twitter:description" content="Ordena los 10 equipos de la Liga de Aruba según tu predicción y descubre qué opina toda la afición en La General.">
+<meta name="twitter:image" content="https://www.fap-aruba.com/assets/img/og-image.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=20260818b">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "FAP - Futbol Aruba Predición",
+  "url": "https://www.fap-aruba.com/",
+  "description": "Herramienta gratuita para predecir la clasificación final de la Primera División de Aruba, descargar tu pronóstico como imagen y ver la predicción media de toda la afición.",
+  "applicationCategory": "SportsApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "inLanguage": "es"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Necesito registrarme para hacer mi predicción?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. FAP funciona sin cuentas ni registros: entras, ordenas los equipos y ya puedes descargar o enviar tu predicción." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo se calcula la tabla La General?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Es la media de la posición que le ha dado cada persona a cada equipo en todas las predicciones enviadas, ordenada de menor a mayor media." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo cambiar mi predicción después de enviarla?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sí. Si vuelves a enviarla desde el mismo dispositivo, sustituye a la anterior en La General en lugar de sumarse como un voto nuevo." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo descargo mi predicción?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pulsa Descargar mi predicción y se genera automáticamente una imagen PNG con tu clasificación, lista para compartir." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es gratis usar FAP?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sí, la herramienta es completamente gratuita y no requiere descargar ninguna app." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#herramienta">Saltar al contenido</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark" aria-hidden="true">FAP</span>
+      <span class="logo-sub">Futbol Aruba Predición</span>
+    </a>
+    <nav class="site-nav" aria-label="Navegación principal">
+      <a href="#herramienta">La herramienta</a>
+      <a href="#la-general">La General</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="herramienta">
+    <div class="container">
+      <h1>Predicciones de fútbol de la Liga de Aruba</h1>
+      <p class="hero-sub">Arrastra los 10 equipos de la Primera División de Aruba y ordénalos del 1º al 10º según creas que va a terminar la temporada. Sin registro, en menos de un minuto.</p>
+
+      <div class="tool-card" id="tool-card" data-state="idle">
+        <div class="tool-card-top">
+          <p class="tool-instructions">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3a1 1 0 0 0-1 1v3H5a1 1 0 0 0-.7 1.7l4 4a1 1 0 0 0 1.4 0l4-4A1 1 0 0 0 13 7h-3V4a1 1 0 0 0-1-1zm6 17a1 1 0 0 0 1-1v-3h3a1 1 0 0 0 .7-1.7l-4-4a1 1 0 0 0-1.4 0l-4 4a1 1 0 0 0 .7 1.7h3v3a1 1 0 0 0 1 1z"/></svg>
+            Arrastra cada equipo (o usa las flechas) para fijar su puesto final.
+          </p>
+          <button type="button" class="btn btn-ghost" id="btn-reset" aria-label="Reiniciar el orden a la posición inicial">Reiniciar orden</button>
+        </div>
+
+        <ol class="ranking-board" id="ranking-board" aria-label="Tu predicción de clasificación">
+          <!-- generado por main.js a partir de window.__BRAND__.teams; ver noscript debajo -->
+        </ol>
+
+        <noscript>
+          <p class="notice">Esta herramienta necesita JavaScript activado para poder arrastrar y descargar tu predicción. Los equipos de la Primera División de Aruba son: Britannia, Bubali, Caiquetio, Caravel, Dakota, La Fama, Nacional, RCA, River Plate y Sporting.</p>
+        </noscript>
+
+        <div class="tool-card-actions">
+          <button type="button" class="btn btn-primary" id="btn-download">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.6l2.9-2.9a1 1 0 1 1 1.4 1.4l-4.6 4.6a1 1 0 0 1-1.4 0L6.7 12.1a1 1 0 1 1 1.4-1.4l2.9 2.9V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
+            Descargar mi predicción
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-submit">Enviar a La General</button>
+          <p class="submit-status" id="submit-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <p class="privacy-badge">🔒 100% gratis y sin registro — tu predicción se guarda en tu propio dispositivo.</p>
+    </div>
+  </section>
+
+  <!-- ANUNCIO: banner horizontal bajo la herramienta -->
+  <div class="ad-wrap">
+    <div class="ad-slot ad-leaderboard" aria-label="Espacio publicitario">
+      <span class="ad-tag">Publicidad</span>
+      <span class="ad-placeholder-text">ANUNCIO</span>
+      <span class="ad-dims">728 × 90</span>
+      <!-- PEGA AQUÍ TU CÓDIGO DE ADSENSE -->
+    </div>
+  </div>
+
+  <section class="la-general" id="la-general">
+    <div class="container">
+      <h2>La General</h2>
+      <p class="section-sub">La clasificación media entre <strong id="votos-count">…</strong> predicciones enviadas por toda la afición. Cuantas más personas coloquen a un equipo arriba, más sube; si lo hunden abajo, más baja.</p>
+
+      <div class="general-table-wrap">
+        <table class="general-table" id="general-table">
+          <thead>
+            <tr><th scope="col">#</th><th scope="col">Equipo</th><th scope="col">Posición media</th></tr>
+          </thead>
+          <tbody id="general-table-body">
+            <tr><td colspan="3" class="general-loading">Cargando la predicción de la afición…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="general-fallback" id="general-fallback" hidden>Aún no hay suficientes predicciones enviadas desde este servidor, o el servicio no está disponible en esta vista previa. ¡Sé de los primeros en enviar la tuya!</p>
+    </div>
+  </section>
+
+  <!-- ANUNCIO: banner a media página -->
+  <div class="ad-wrap">
+    <div class="ad-slot ad-rectangle" aria-label="Espacio publicitario">
+      <span class="ad-tag">Publicidad</span>
+      <span class="ad-placeholder-text">ANUNCIO</span>
+      <span class="ad-dims">336 × 280</span>
+      <!-- PEGA AQUÍ TU CÓDIGO DE ADSENSE -->
+    </div>
+  </div>
+
+  <section class="content-seo">
+    <div class="container prose">
+      <h2>¿Qué es la Primera División de Aruba?</h2>
+      <p>La Primera División de Aruba —conocida también como la <em>Division di Honor</em>— es la máxima categoría del fútbol arubano y está organizada por la Aruba Football Federation (AVB), el organismo que rige el fútbol en la isla desde 1932. Esta liga corona cada temporada al mejor equipo del país, en un formato que tradicionalmente enfrenta a los mejores clubes de la isla en una fase regular seguida de una liguilla final entre los equipos mejor clasificados.</p>
+      <p>Como en muchas ligas caribeñas, la competición combina clubes históricos con gran arraigo local, y sus partidos son una cita habitual para la afición arubana. La lista de equipos y el formato exacto pueden variar de una temporada a otra, así que en FAP nos centramos en lo que de verdad importa a la afición antes de que arranque la competición: ¿quién va a ser campeón, y quién va a sufrir por evitar los últimos puestos?</p>
+
+      <h3>Los 10 equipos de esta temporada en FAP</h3>
+      <p>En esta edición puedes predecir la clasificación final de estos diez equipos: <strong>Britannia, Bubali, Caiquetio, Caravel, Dakota, La Fama, Nacional, RCA, River Plate y Sporting</strong>. Cada uno aparece con su insignia en el tablero de predicción, listo para que lo coloques donde creas que va a terminar.</p>
+
+      <h3>Cómo funciona la herramienta de predicción</h3>
+      <p>Solo tienes que arrastrar cada equipo dentro del tablero (o usar las flechas de subir/bajar si prefieres no arrastrar) hasta dejarlos ordenados del puesto 1 al 10. Cuando estés conforme con tu clasificación, puedes:</p>
+      <ul>
+        <li><strong>Descargar tu predicción</strong> como imagen para compartirla en redes sociales o grupos de chat.</li>
+        <li><strong>Enviarla a La General</strong>, la tabla colectiva que resume, en tiempo real, lo que predice toda la afición de la Liga de Aruba.</li>
+      </ul>
+      <p>Tu predicción se guarda en tu propio navegador, así que si vuelves más tarde la encontrarás tal y como la dejaste — y podrás modificarla y reenviarla cuando quieras.</p>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2>Preguntas frecuentes</h2>
+
+      <details class="faq-item">
+        <summary>¿Necesito registrarme para hacer mi predicción?</summary>
+        <p>No. FAP funciona sin cuentas ni registros: entras, ordenas los equipos y ya puedes descargar o enviar tu predicción.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo se calcula la tabla “La General”?</summary>
+        <p>Es la media de la posición que le ha dado cada persona a cada equipo en todas las predicciones enviadas. Si mucha gente pone a un equipo primero, su media sube; si lo hunden al puesto 10, su media baja. La tabla se ordena de menor a mayor media.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Puedo cambiar mi predicción después de enviarla?</summary>
+        <p>Sí. Si vuelves a enviar tu predicción desde el mismo dispositivo, se sustituye la anterior en “La General” en lugar de sumarse como un voto nuevo.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo descargo mi predicción?</summary>
+        <p>Pulsa “Descargar mi predicción” y se genera automáticamente una imagen PNG con tu clasificación, lista para compartir.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué equipos participan en esta edición?</summary>
+        <p>Britannia, Bubali, Caiquetio, Caravel, Dakota, La Fama, Nacional, RCA, River Plate y Sporting.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Es gratis usar FAP?</summary>
+        <p>Sí, la herramienta es completamente gratuita y no requiere descargar ninguna app.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Funciona bien desde el móvil?</summary>
+        <p>Sí. El tablero de predicción está pensado para arrastrar los equipos también con el dedo, sin necesidad de ratón.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <span class="logo-mark" aria-hidden="true">FAP</span>
+      <p class="footer-note">FAP (Futbol Aruba Predición) es un proyecto de aficionados, sin relación oficial con la Aruba Football Federation (AVB) ni con los clubes mencionados.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Legal">
+      <a href="privacidad.html">Privacidad</a>
+      <a href="aviso-legal.html">Aviso legal</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ANUNCIO: notificación flotante de esquina -->
+<aside class="ad-corner" id="ad-corner" hidden aria-label="Espacio publicitario">
+  <button type="button" class="ad-corner-close" id="ad-corner-close" aria-label="Cerrar anuncio">✕</button>
+  <span class="ad-tag">Publicidad</span>
+  <span class="ad-placeholder-text">ANUNCIO</span>
+  <!-- PEGA AQUÍ TU CÓDIGO DE ADSENSE -->
+</aside>
+
+<!-- ANUNCIO: pop-up al descargar -->
+<dialog class="ad-dialog" id="ad-dialog">
+  <button type="button" class="ad-dialog-close" id="ad-dialog-close" aria-label="Cerrar">✕</button>
+  <p class="ad-dialog-title">Tu predicción se está descargando…</p>
+  <div class="ad-slot ad-dialog-slot" aria-label="Espacio publicitario">
+    <span class="ad-tag">Publicidad</span>
+    <span class="ad-placeholder-text">ANUNCIO</span>
+    <span class="ad-dims">300 × 250</span>
+    <!-- PEGA AQUÍ TU CÓDIGO DE ADSENSE -->
+  </div>
+  <button type="button" class="btn btn-ghost ad-dialog-continue" id="ad-dialog-continue">Cerrar y seguir</button>
+</dialog>
+
+<canvas id="export-canvas" class="visually-hidden" aria-hidden="true"></canvas>
+
+<script defer src="lib/vendor/html2canvas.min.js?v=20260818b"></script>
+<script defer src="lib/manifest.js?v=20260818b"></script>
+<script defer src="main.js?v=20260818b"></script>
+</body>
+</html>
