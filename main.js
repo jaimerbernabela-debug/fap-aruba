@@ -4,7 +4,12 @@
   var data = window.__BRAND__ || { teams: [], faqs: [] };
   var STORAGE_KEY = "fap:prediction:v1";
   var VOTER_KEY = "fap:voter:v1";
+  var SCORER_KEY = "fap:topscorer:v1";
+  var ASSIST_KEY = "fap:topassist:v1";
   var teamById = {};
+
+  var TROPHY_SVG = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 4 7v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V7l-8-5zm0 2.3 6 3.7v5c0 4-2.6 6.7-6 7.3-3.4-.6-6-3.3-6-7.3V8l6-3.7z"/></svg>';
+  var BALL_SVG = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/><path fill="currentColor" d="M12 7.4 15.3 9.7l-1.3 3.8H10l-1.3-3.8L12 7.4z"/><path stroke="currentColor" stroke-width="1" fill="none" d="M12 3.4v4M12 16.5v4.1M4.6 8l3.7 1.7M15.7 9.7 19.4 8M4.7 16.2l3.4-2.2M15.9 14l3.4 2.2"/></svg>';
 
   var $ = function (sel, scope) { return (scope || document).querySelector(sel); };
   var $$ = function (sel, scope) { return Array.prototype.slice.call((scope || document).querySelectorAll(sel)); };
@@ -43,10 +48,8 @@
   function renderItemHTML(team, idx) {
     return (
       '<li class="rank-item" data-team-id="' + team.id + '">' +
-        '<span class="drag-handle" aria-hidden="true">' +
-          '<svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M9 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm10-12a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 6a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg>' +
-        "</span>" +
-        '<span class="rank-pos">' + (idx + 1) + "</span>" +
+        '<span class="drag-handle" aria-hidden="true">' + BALL_SVG + "</span>" +
+        '<span class="rank-pos">' + (idx === 0 ? TROPHY_SVG : (idx + 1)) + "</span>" +
         '<span class="rank-badge"><img src="assets/img/teams/' + (team.badge || team.id + ".svg") + '" alt="" loading="lazy"></span>' +
         '<span class="rank-name">' + escHTML(team.name) + "</span>" +
         '<span class="rank-controls">' +
@@ -75,7 +78,7 @@
     var items = $$(".rank-item", board);
     items.forEach(function (li, i) {
       var pos = $(".rank-pos", li);
-      if (pos) pos.textContent = String(i + 1);
+      if (pos) pos.innerHTML = i === 0 ? TROPHY_SVG : String(i + 1);
       var up = $(".rank-up", li);
       var down = $(".rank-down", li);
       if (up) up.disabled = i === 0;
@@ -93,6 +96,41 @@
   function getCurrentOrder() {
     var board = $("#ranking-board");
     return board ? $$(".rank-item", board).map(function (li) { return li.dataset.teamId; }) : [];
+  }
+
+  /* ---------- goleador / asistidor (texto libre, opcional) ---------- */
+  function getAwardInputs() {
+    var scorerEl = $("#input-top-scorer");
+    var assistEl = $("#input-top-assist");
+    return {
+      topScorer: scorerEl ? scorerEl.value.trim() : "",
+      topAssist: assistEl ? assistEl.value.trim() : ""
+    };
+  }
+
+  function loadSavedAwards() {
+    var scorerEl = $("#input-top-scorer");
+    var assistEl = $("#input-top-assist");
+    try {
+      if (scorerEl) scorerEl.value = localStorage.getItem(SCORER_KEY) || "";
+      if (assistEl) assistEl.value = localStorage.getItem(ASSIST_KEY) || "";
+    } catch (_) {}
+  }
+
+  function initAwardsInputs() {
+    var scorerEl = $("#input-top-scorer");
+    var assistEl = $("#input-top-assist");
+    loadSavedAwards();
+    if (scorerEl) {
+      scorerEl.addEventListener("input", function () {
+        try { localStorage.setItem(SCORER_KEY, scorerEl.value.trim()); } catch (_) {}
+      });
+    }
+    if (assistEl) {
+      assistEl.addEventListener("input", function () {
+        try { localStorage.setItem(ASSIST_KEY, assistEl.value.trim()); } catch (_) {}
+      });
+    }
   }
 
   /* ---------- drag & drop (pointer events: mouse + touch + pen) ---------- */
@@ -204,7 +242,7 @@
   }
 
   /* ---------- download as image ---------- */
-  function buildExportCard(order) {
+  function buildExportCard(order, awards) {
     var card = document.createElement("div");
     card.className = "export-card";
     var rows = order.map(function (id, i) {
@@ -212,17 +250,25 @@
       if (!t) return "";
       return (
         '<li class="export-row">' +
-          '<span class="export-pos">' + (i + 1) + "</span>" +
+          '<span class="export-pos">' + (i === 0 ? TROPHY_SVG : (i + 1)) + "</span>" +
           '<img class="export-badge" src="assets/img/teams/' + (t.badge || t.id + ".svg") + '" alt="">' +
           '<span class="export-name">' + escHTML(t.name) + "</span>" +
         "</li>"
       );
     }).join("");
     var today = new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "long", year: "numeric" });
+    var awardsLine = "";
+    if (awards && (awards.topScorer || awards.topAssist)) {
+      var parts = [];
+      if (awards.topScorer) parts.push("⚽ Pichichi: " + escHTML(awards.topScorer));
+      if (awards.topAssist) parts.push("🎯 Asistencias: " + escHTML(awards.topAssist));
+      awardsLine = '<div class="export-foot-awards">' + parts.join(" &nbsp;·&nbsp; ") + "</div>";
+    }
     card.innerHTML =
       '<div class="export-head"><span class="export-logo">FAP</span><span class="export-tag">Futbol Aruba Predición</span></div>' +
       '<h2 class="export-title">Mi predicción — Liga de Aruba</h2>' +
       '<ol class="export-list">' + rows + "</ol>" +
+      awardsLine +
       '<div class="export-foot">fap-aruba.com · ' + today + "</div>";
     return card;
   }
@@ -239,7 +285,7 @@
 
     if (status) { status.textContent = "Generando tu imagen…"; status.removeAttribute("data-tone"); }
 
-    var card = buildExportCard(order);
+    var card = buildExportCard(order, getAwardInputs());
     document.body.appendChild(card);
 
     window.html2canvas(card, { backgroundColor: "#ffffff", scale: 2, useCORS: true }).then(function (canvas) {
@@ -277,10 +323,11 @@
     var status = $("#submit-status");
     if (status) { status.textContent = "Enviando tu predicción…"; status.removeAttribute("data-tone"); }
 
+    var awards = getAwardInputs();
     fetch("api/submit.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ voter: getVoterId(), order: order })
+      body: JSON.stringify({ voter: getVoterId(), order: order, topScorer: awards.topScorer, topAssist: awards.topAssist })
     })
       .then(function (res) { if (!res.ok) throw new Error("http " + res.status); return res.json(); })
       .then(function (json) {
@@ -324,10 +371,30 @@
     if (fallback) fallback.hidden = true;
     tbody.innerHTML = payload.teams.map(function (row, i) {
       var t = teamById[row.id] || { id: row.id, name: row.id, badge: row.id + ".svg" };
+      var medalClass = i < 3 ? " medal-" + (i + 1) : "";
+      var posHTML = i === 0 ? TROPHY_SVG : String(i + 1);
       return (
-        "<tr><td>" + (i + 1) + "</td>" +
+        '<tr><td><span class="g-pos' + medalClass + '">' + posHTML + "</span></td>" +
         '<td><span class="g-team"><img class="g-badge" src="assets/img/teams/' + (t.badge || t.id + ".svg") + '" alt="">' + escHTML(t.name) + "</span></td>" +
         "<td>" + Number(row.avg).toFixed(2) + "</td></tr>"
+      );
+    }).join("");
+
+    renderAwardList("#award-scorers", payload.topScorers);
+    renderAwardList("#award-assists", payload.topAssists);
+  }
+
+  function renderAwardList(selector, rows) {
+    var el = $(selector);
+    if (!el) return;
+    if (!rows || !rows.length) {
+      el.innerHTML = '<p class="award-empty">Aún no hay votos suficientes.</p>';
+      return;
+    }
+    el.innerHTML = rows.map(function (r) {
+      return (
+        '<div class="award-row"><span class="award-name">' + escHTML(r.name) + "</span>" +
+        '<span class="award-votes">' + r.votes + (r.votes === 1 ? " voto" : " votos") + "</span></div>"
       );
     }).join("");
   }
@@ -396,6 +463,7 @@
     safe(initControls, "initControls");
     safe(initDownload, "initDownload");
     safe(initSubmit, "initSubmit");
+    safe(initAwardsInputs, "initAwardsInputs");
     safe(loadGeneral, "loadGeneral");
     safe(initAdCorner, "initAdCorner");
     safe(initAdDialog, "initAdDialog");

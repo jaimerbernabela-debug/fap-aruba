@@ -4,11 +4,19 @@
 CREATE TABLE IF NOT EXISTS predictions (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   voter_id VARCHAR(64) NOT NULL,
+  top_scorer VARCHAR(80) NULL,
+  top_assist VARCHAR(80) NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE KEY uniq_voter (voter_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Migración idempotente: añade las columnas si la tabla ya existía de antes
+-- (se re-ejecuta en cada arranque del contenedor; CREATE TABLE IF NOT EXISTS
+-- no añade columnas nuevas a una tabla que ya existe, así que hace falta esto).
+ALTER TABLE predictions ADD COLUMN IF NOT EXISTS top_scorer VARCHAR(80) NULL;
+ALTER TABLE predictions ADD COLUMN IF NOT EXISTS top_assist VARCHAR(80) NULL;
 
 CREATE TABLE IF NOT EXISTS prediction_teams (
   prediction_id INT UNSIGNED NOT NULL,

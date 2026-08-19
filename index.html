@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=20260818b">
+<link rel="stylesheet" href="styles.css?v=20260819">
 
 <script type="application/ld+json">
 {
@@ -93,8 +93,9 @@
 
   <section class="hero" id="herramienta">
     <div class="container">
+      <span class="eyebrow">⚽ Pronósticos temporada 2026</span>
       <h1>Predicciones de fútbol de la Liga de Aruba</h1>
-      <p class="hero-sub">Arrastra los 10 equipos de la Primera División de Aruba y ordénalos del 1º al 10º según creas que va a terminar la temporada. Sin registro, en menos de un minuto.</p>
+      <p class="hero-sub">Arrastra los 10 equipos de la Primera División de Aruba hasta armar tu tabla de posiciones del 1º al 10º. Sin registro, en menos de un minuto.</p>
 
       <div class="tool-card" id="tool-card" data-state="idle">
         <div class="tool-card-top">
@@ -110,8 +111,30 @@
         </ol>
 
         <noscript>
-          <p class="notice">Esta herramienta necesita JavaScript activado para poder arrastrar y descargar tu predicción. Los equipos de la Primera División de Aruba son: Britannia, Bubali, Caiquetio, Caravel, Dakota, La Fama, Nacional, RCA, River Plate y Sporting.</p>
+          <p class="notice">Esta herramienta necesita JavaScript activado para poder arrastrar y descargar tu predicción (y elegir tu Pichichi y máximo asistidor). Los equipos de la Primera División de Aruba son: Britannia, Bubali, Caiquetio, Caravel, Dakota, La Fama, Nacional, RCA, River Plate y Sporting.</p>
         </noscript>
+
+        <div class="awards-inputs">
+          <p class="awards-inputs-title">Bonus: ¿te atreves también con los individuales? (opcional)</p>
+          <div class="awards-fields">
+            <div class="award-field">
+              <label for="input-top-scorer">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 4 7v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V7l-8-5zm0 2.3 6 3.7v5c0 4-2.6 6.7-6 7.3-3.4-.6-6-3.3-6-7.3V8l6-3.7z"/></svg>
+                Máximo goleador (Pichichi)
+              </label>
+              <input type="text" id="input-top-scorer" maxlength="80" autocomplete="off" placeholder="Nombre del jugador">
+              <span class="hint">¿Quién crees que meterá más goles esta temporada?</span>
+            </div>
+            <div class="award-field">
+              <label for="input-top-assist">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 12a1 1 0 0 1 1-1h11.6l-3.3-3.3a1 1 0 1 1 1.4-1.4l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4l3.3-3.3H5a1 1 0 0 1-1-1z"/></svg>
+                Máximo asistidor
+              </label>
+              <input type="text" id="input-top-assist" maxlength="80" autocomplete="off" placeholder="Nombre del jugador">
+              <span class="hint">¿Y quién dará más asistencias?</span>
+            </div>
+          </div>
+        </div>
 
         <div class="tool-card-actions">
           <button type="button" class="btn btn-primary" id="btn-download">
@@ -139,7 +162,10 @@
 
   <section class="la-general" id="la-general">
     <div class="container">
-      <h2>La General</h2>
+      <div class="section-title-row">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 4 7v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V7l-8-5zm0 2.3 6 3.7v5c0 4-2.6 6.7-6 7.3-3.4-.6-6-3.3-6-7.3V8l6-3.7z"/></svg>
+        <h2>La General</h2>
+      </div>
       <p class="section-sub">La clasificación media entre <strong id="votos-count">…</strong> predicciones enviadas por toda la afición. Cuantas más personas coloquen a un equipo arriba, más sube; si lo hunden abajo, más baja.</p>
 
       <div class="general-table-wrap">
@@ -153,6 +179,27 @@
         </table>
       </div>
       <p class="general-fallback" id="general-fallback" hidden>Aún no hay suficientes predicciones enviadas desde este servidor, o el servicio no está disponible en esta vista previa. ¡Sé de los primeros en enviar la tuya!</p>
+
+      <div class="awards-grid">
+        <div class="award-card">
+          <h3>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2 4 7v6c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V7l-8-5zm0 2.3 6 3.7v5c0 4-2.6 6.7-6 7.3-3.4-.6-6-3.3-6-7.3V8l6-3.7z"/></svg>
+            Pichichi según la afición
+          </h3>
+          <div class="award-list" id="award-scorers">
+            <p class="award-empty">Aún no hay votos suficientes.</p>
+          </div>
+        </div>
+        <div class="award-card">
+          <h3>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 12a1 1 0 0 1 1-1h11.6l-3.3-3.3a1 1 0 1 1 1.4-1.4l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4l3.3-3.3H5a1 1 0 0 1-1-1z"/></svg>
+            Máximo asistidor según la afición
+          </h3>
+          <div class="award-list" id="award-assists">
+            <p class="award-empty">Aún no hay votos suficientes.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -227,6 +274,7 @@
     <div>
       <span class="logo-mark" aria-hidden="true">FAP</span>
       <p class="footer-note">FAP (Futbol Aruba Predición) es un proyecto de aficionados, sin relación oficial con la Aruba Football Federation (AVB) ni con los clubes mencionados.</p>
+      <p class="footer-tagline">¡Que gane el mejor equipo! ⚽</p>
     </div>
     <nav class="footer-nav" aria-label="Legal">
       <a href="privacidad.html">Privacidad</a>
@@ -258,8 +306,8 @@
 
 <canvas id="export-canvas" class="visually-hidden" aria-hidden="true"></canvas>
 
-<script defer src="lib/vendor/html2canvas.min.js?v=20260818b"></script>
-<script defer src="lib/manifest.js?v=20260818b"></script>
-<script defer src="main.js?v=20260818b"></script>
+<script defer src="lib/vendor/html2canvas.min.js?v=20260819"></script>
+<script defer src="lib/manifest.js?v=20260819"></script>
+<script defer src="main.js?v=20260819"></script>
 </body>
 </html>

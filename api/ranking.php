@@ -30,7 +30,27 @@ try {
         ];
     }, $rows);
 
-    fap_json(['ok' => true, 'total' => $total, 'teams' => $teams]);
+    $awardQuery = 'SELECT ANY_VALUE(%1$s) AS name, COUNT(*) AS votes
+         FROM predictions
+         WHERE %1$s IS NOT NULL AND TRIM(%1$s) <> \'\'
+         GROUP BY LOWER(TRIM(%1$s))
+         ORDER BY votes DESC, name ASC
+         LIMIT 8';
+
+    $mapAward = static function (array $row): array {
+        return ['name' => $row['name'], 'votes' => (int) $row['votes']];
+    };
+
+    $topScorers = array_map($mapAward, $pdo->query(sprintf($awardQuery, 'top_scorer'))->fetchAll());
+    $topAssists = array_map($mapAward, $pdo->query(sprintf($awardQuery, 'top_assist'))->fetchAll());
+
+    fap_json([
+        'ok' => true,
+        'total' => $total,
+        'teams' => $teams,
+        'topScorers' => $topScorers,
+        'topAssists' => $topAssists,
+    ]);
 } catch (Throwable $e) {
     fap_json(['ok' => false, 'error' => 'server_error'], 500);
 }

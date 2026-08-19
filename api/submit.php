@@ -34,15 +34,20 @@ if (count($uniqueOrder) !== count(FAP_TEAMS) || array_diff($order, FAP_TEAMS) !=
     fap_json(['ok' => false, 'error' => 'invalid_teams'], 400);
 }
 
+$topScorer = isset($body['topScorer']) ? trim((string) $body['topScorer']) : '';
+$topAssist = isset($body['topAssist']) ? trim((string) $body['topAssist']) : '';
+$topScorer = $topScorer === '' ? null : mb_substr($topScorer, 0, 80);
+$topAssist = $topAssist === '' ? null : mb_substr($topAssist, 0, 80);
+
 try {
     $pdo = fap_db();
     $pdo->beginTransaction();
 
     $stmt = $pdo->prepare(
-        'INSERT INTO predictions (voter_id) VALUES (:voter)
-         ON DUPLICATE KEY UPDATE updated_at = CURRENT_TIMESTAMP'
+        'INSERT INTO predictions (voter_id, top_scorer, top_assist) VALUES (:voter, :scorer, :assist)
+         ON DUPLICATE KEY UPDATE top_scorer = VALUES(top_scorer), top_assist = VALUES(top_assist), updated_at = CURRENT_TIMESTAMP'
     );
-    $stmt->execute(['voter' => $voter]);
+    $stmt->execute(['voter' => $voter, 'scorer' => $topScorer, 'assist' => $topAssist]);
 
     $idStmt = $pdo->prepare('SELECT id FROM predictions WHERE voter_id = :voter');
     $idStmt->execute(['voter' => $voter]);
