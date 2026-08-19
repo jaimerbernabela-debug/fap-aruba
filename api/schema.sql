@@ -12,9 +12,8 @@ CREATE TABLE IF NOT EXISTS predictions (
   UNIQUE KEY uniq_voter (voter_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Migración idempotente: añade las columnas si la tabla ya existía de antes
--- (se re-ejecuta en cada arranque del contenedor; CREATE TABLE IF NOT EXISTS
--- no añade columnas nuevas a una tabla que ya existe, así que hace falta esto).
+-- Migracion idempotente para la tabla que ya existiera de antes
+-- (CREATE TABLE IF NOT EXISTS no anade columnas nuevas por si sola)
 ALTER TABLE predictions ADD COLUMN IF NOT EXISTS top_scorer VARCHAR(80) NULL;
 ALTER TABLE predictions ADD COLUMN IF NOT EXISTS top_assist VARCHAR(80) NULL;
 
