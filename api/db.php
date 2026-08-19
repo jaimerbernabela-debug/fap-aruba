@@ -38,3 +38,24 @@ const FAP_TEAMS = [
     'britannia', 'bubali', 'caiquetio', 'caravel', 'dakota',
     'la-fama', 'nacional', 'rca', 'river-plate', 'sporting',
 ];
+
+// Sal fija solo para anonimizar la IP guardada (no es un secreto criptografico,
+// solo evita guardar la IP en claro). Cambiarla invalidaria el limite anti-abuso
+// de las predicciones ya guardadas, pero no rompe nada.
+const FAP_IP_SALT = 'fap-aruba-ip-salt-2026';
+
+function fap_client_ip(): string {
+    $xff = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? '';
+    if ($xff !== '') {
+        $parts = explode(',', $xff);
+        $ip = trim($parts[0]);
+        if ($ip !== '') {
+            return $ip;
+        }
+    }
+    return $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+}
+
+function fap_ip_hash(): string {
+    return hash('sha256', fap_client_ip() . FAP_IP_SALT);
+}

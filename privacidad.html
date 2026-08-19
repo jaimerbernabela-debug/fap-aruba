@@ -43,6 +43,7 @@
       <ul>
         <li><strong>Tu predicción</strong> (el orden en que colocas los 10 equipos) se guarda en el almacenamiento local de tu propio navegador (<code>localStorage</code>), no en un perfil personal.</li>
         <li>Si pulsas «Enviar a La General», tu predicción se envía a nuestro servidor junto con un <strong>identificador anónimo generado al azar</strong> en tu dispositivo (no es tu nombre, email ni ningún dato que te identifique). Ese identificador solo sirve para poder sustituir tu voto anterior si vuelves a enviar una nueva predicción, y se usa para calcular la media de «La General».</li>
+        <li>También guardamos una <strong>versión codificada (hash) de tu dirección IP</strong>, no la IP en claro, únicamente para evitar que una misma persona infle «La General» enviando muchas predicciones seguidas.</li>
         <li>No se solicita ni se guarda nombre, email, teléfono ni ninguna otra información personal para usar la herramienta.</li>
       </ul>
 
