@@ -13,8 +13,6 @@ CREATE TABLE IF NOT EXISTS predictions (
   UNIQUE KEY uniq_voter (voter_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE predictions ADD COLUMN ip_hash VARCHAR(64) NULL AFTER voter_id;
-
 CREATE TABLE IF NOT EXISTS prediction_teams (
   prediction_id INT UNSIGNED NOT NULL,
   team_id VARCHAR(32) NOT NULL,
@@ -25,3 +23,5 @@ CREATE TABLE IF NOT EXISTS prediction_teams (
     FOREIGN KEY (prediction_id) REFERENCES predictions (id)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DELETE FROM predictions WHERE voter_id IN ('test-ip-a', 'test-ip-b');
