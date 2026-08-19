@@ -12,17 +12,8 @@ CREATE TABLE IF NOT EXISTS predictions (
   UNIQUE KEY uniq_voter (voter_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-SET @col_exists := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'predictions' AND COLUMN_NAME = 'top_scorer');
-SET @ddl := IF(@col_exists = 0, 'ALTER TABLE predictions ADD COLUMN top_scorer VARCHAR(80) NULL', 'SELECT 1');
-PREPARE stmt FROM @ddl;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-SET @col_exists := (SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'predictions' AND COLUMN_NAME = 'top_assist');
-SET @ddl := IF(@col_exists = 0, 'ALTER TABLE predictions ADD COLUMN top_assist VARCHAR(80) NULL', 'SELECT 1');
-PREPARE stmt FROM @ddl;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
+ALTER TABLE predictions ADD COLUMN top_scorer VARCHAR(80) NULL;
+ALTER TABLE predictions ADD COLUMN top_assist VARCHAR(80) NULL;
 
 CREATE TABLE IF NOT EXISTS prediction_teams (
   prediction_id INT UNSIGNED NOT NULL,
