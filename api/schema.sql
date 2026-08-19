@@ -22,3 +22,5 @@ CREATE TABLE IF NOT EXISTS prediction_teams (
     FOREIGN KEY (prediction_id) REFERENCES predictions (id)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DELETE FROM predictions WHERE voter_id = 'verify-test-001';
