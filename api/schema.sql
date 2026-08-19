@@ -12,9 +12,6 @@ CREATE TABLE IF NOT EXISTS predictions (
   UNIQUE KEY uniq_voter (voter_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE predictions ADD COLUMN top_scorer VARCHAR(80) NULL;
-ALTER TABLE predictions ADD COLUMN top_assist VARCHAR(80) NULL;
-
 CREATE TABLE IF NOT EXISTS prediction_teams (
   prediction_id INT UNSIGNED NOT NULL,
   team_id VARCHAR(32) NOT NULL,
